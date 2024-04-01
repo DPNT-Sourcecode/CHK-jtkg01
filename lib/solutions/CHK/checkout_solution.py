@@ -21,4 +21,6 @@ def checkout(skus):
             total += offer_count * offer_price + remaining_count * price_per_item
         else:
             total += count * price_per_item
-    raise NotImplementedError()
+
+    return total
+
