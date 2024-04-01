@@ -3,8 +3,8 @@
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
-    price = {'A': 50, 'B': 30, 'C': 20, 'D': 15}
-    offers = {'A': (3, 130), 'B': (2, 45)}
+    price = {'A': 50, 'B': 30, 'C': 20, 'D': 15, 'E': 40}
+    offers = {'A': [(5, 200), (3, 130)], 'B': [(2, 45)], 'E': [(2, B)]}
 
     total = 0
 
@@ -23,4 +23,5 @@ def checkout(skus):
             total += count * price_per_item
 
     return total
+
 
