@@ -18,18 +18,22 @@ def checkout(skus):
             for offer in offers[sku]:
                 if isinstance(offer[1], int):
                     offer_count, offer_price = offer
-                    offer_deal = (count // offer_count) * offer_price
-                    total += (count // offer_count) * offer_price
-                    count %= offer_count
+                    offer_deal = count // offer_count
+                    remaining = count % offer_count
+                    total += offer_deal * offer_price
+                    count = remaining
                 else:
                     offer_count, offer_sku = offer
-                    if offer_sku in sku_count and sku_count[offer_sku] >= offer_count //:
+                    if offer_sku in sku_count and sku_count[offer_sku] >= offer_count //offer_count:
                         total += (count - count // offer_count) * price_per_item
                     else:
                         total += count * price_per_item
                     break
+        else:
+            total += count * price_per_item
 
     return total
+
 
 
 
