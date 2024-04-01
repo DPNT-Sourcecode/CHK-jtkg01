@@ -32,7 +32,3 @@ def checkout(skus):
 
     return total if all(count >= 0 for count in sku_count.values()) else -1
 
-
-
-
-
