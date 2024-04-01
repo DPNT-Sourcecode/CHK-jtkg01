@@ -33,7 +33,3 @@ def checkout(skus):
             total += count * price_per_item
 
     return total
-
-
-
-
