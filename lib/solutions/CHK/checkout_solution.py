@@ -8,6 +8,8 @@ def checkout(skus):
 
     total = 0
 
+    skus = skus.upper()
+
     sku_count = {sku: skus.count(sku) for sku in set(skus)}
     for sku, count in sku_count.items():
         if sku in offers:
@@ -27,5 +29,6 @@ def checkout(skus):
         total += price[sku] * count
 
     return total if all(count >= 0 for count in sku_count.values()) else -1
+
 
 
