@@ -10,26 +10,22 @@ def checkout(skus):
 
     sku_count = {sku: skus.count(sku) for sku in set(skus)}
     for sku, count in sku_count.items():
-        if sku not in price:
-            return -1
-
-        price_per_item = price[sku]
         if sku in offers:
-            for offer in offers[sku]:
-                if isinstance(offer[1], int):
-                    offer_count, offer_price = offer
-                    offer_deal = count // offer_count
-                    remaining = count % offer_count
-                    total += offer_deal * offer_price
-                    count = remaining
-                else:
-                    offer_count, offer_sku = offer
-                    if offer_sku in sku_count and sku_count[offer_sku] >= offer_count //offer_count:
-                        total += (count - count // offer_count) * price_per_item
-                    else:
-                        total += count * price_per_item
-                    break
-        else:
-            total += count * price_per_item
+            offer = offers[sku]
+            if isinstance(offer[0][1], int):
+                for offer_count, offer_price in offer:
+                    while sku_count[sku] >= offer_count:
+                        total += offer_price
+                        sku_count[sku] -= offer_count
+            else:
+                free_offer = offer[0][1]
+                while sku_count[sku] >= 2:
+                    total += price[sku] * 2
+                    sku_count[sku] -= 2
+                    sku_count[free_offer] -= 1
+    for sku, count in sku_count.items():
+        total += price[sku] * count
 
-    return total
+    return total if all(count >= 0 for count in sku_count.values()) else -1
+
+
