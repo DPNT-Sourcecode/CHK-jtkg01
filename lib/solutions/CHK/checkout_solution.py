@@ -8,7 +8,6 @@ def checkout(skus):
 
     total = 0
 
-    skus = skus.upper()
 
     if any(sku not in price for sku in skus):
         return -1
@@ -32,6 +31,7 @@ def checkout(skus):
         total += price[sku] * count
 
     return total if all(count >= 0 for count in sku_count.values()) else -1
+
 
 
 
