@@ -1,5 +1,4 @@
 
-
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
@@ -22,13 +21,15 @@ def checkout(skus):
                         total += offer_price
                         sku_count[sku] -= offer_count
             else:
-                free_offer = offer[0][1]
-                while sku_count[sku] >= 2:
-                    total += price[sku] * 2
-                    sku_count[sku] -= 2
-                    sku_count[free_offer] -= 1
+                special_offer, free_offer = offer[0]
+                while sku_count[sku] >= special_offer:
+                    total += price[sku] * special_offer
+                    sku_count[sku] -= special_offer
+                    if free_offer in sku_count:
+                        sku_count[free_offer] -= 1
+
     for sku, count in sku_count.items():
         total += price[sku] * count
 
-    return total if all(count >= 0 for count in sku_count.values()) else -1
+    return total
 
